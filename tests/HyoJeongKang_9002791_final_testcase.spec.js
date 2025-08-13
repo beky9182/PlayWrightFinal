@@ -29,3 +29,18 @@ test("TC03 - standard user login", async ({ page }) => {
   await expect(page.locator(".title")).toContainText("Products");
   //await page.screenshot({ path: "screenshots/tc03_standard_user.png" });
 });
+
+test("TC04 - label", async ({ page }) => {
+  await page.goto("https://www.saucedemo.com/");
+  await page.fill('input[name="user-name"]', "standard_user");
+  await page.fill('input[name="password"]', "secret_sauce");
+  await page.click('input[name="login-button"]');
+  const productNames = await page.locator('.inventory_item_label .inventory_item_name').allTextContents();
+
+  console.log('productNames:');
+  console.log(productNames);
+  
+  const count = await expect(page.locator(".inventory_item_label")).count();
+  expect(count).toBeGreaterThan(0);
+  await page.screenshot({ path: "screenshots/tc04_label.png" });
+});
