@@ -11,11 +11,13 @@ test("TC01 - Empty username and Password", async ({ page }) => {
 
 test("TC02 - Not match username and Password", async ({ page }) => {
   await page.goto("https://www.saucedemo.com/");
-  await page.fill('input[name="user-name"]', "testuser");
-  await page.fill('input[name="password"]', "testuser");
+  await page.fill('input[name="user-name"]', "locked_out_user");
+  await page.fill('input[name="password"]', "secret_sauce");
   await page.click('input[name="login-button"]');
   const errorMessages = await page.locator("h3[data-test='error']").allTextContents();
-  await expect(errorMessages).toContain("Epic sadface: Username and password do not match any user in this service");
+  await expect(errorMessages).toContain(
+    "Epic sadface: Sorry, this user has been locked out."
+  );
   await page.screenshot({ path: "screenshots/tc02_not_match.png" });
 });
 
