@@ -1,0 +1,14 @@
+[core]
+	repositoryformatversion = 0
+	filemode = false
+	bare = false
+	logallrefupdates = true
+	symlinks = false
+	ignorecase = true
+[remote "test_main"]
+	url = https://github.com/beky9182/PlayWright.git
+	fetch = +refs/heads/*:refs/remotes/test_main/*
+[branch "main"]
+	remote = test_main
+	merge = refs/heads/main
+	vscode-merge-base = test_main/main
